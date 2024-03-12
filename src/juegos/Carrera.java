@@ -3,7 +3,7 @@ package juegos;
 public class Carrera {
 
     private Reloj reloj;
-    private String estado;
+    private Boolean estado;
     private Coche[] coches;
     private int vueltas;
 
@@ -11,7 +11,7 @@ public class Carrera {
         this.reloj = reloj;
         this.coches = coches;
         this.vueltas = vueltas;
-        this.estado = "Pendiente";
+        this.estado = false;
     }
 
     public Reloj getReloj() {
@@ -22,7 +22,7 @@ public class Carrera {
         this.reloj = reloj;
     }
 
-    public String getEstado() {
+    public Boolean getEstado() {
         return estado;
     }
 
@@ -47,22 +47,24 @@ public class Carrera {
     }
 
     public void agregarCoche(Coche nuevoCoche) {
-        
+        int position = coches.length + 1;
 
+        coches[position] = nuevoCoche;
     }
 
     public void comenzarCarrera() {
         
-        this.estado = "En curso";
+        this.estado = true;
     }
 
-    public void registrarTiempoDeVuelta(Coche coche, int tiempo) {
-        
+    public void registrarTiempoDeVuelta(Reloj reloj, Coche coche) {
+        coche.setReloj(reloj);
     }
 
     public void finalizarCarrera() {
+
+        this.estado = false;
+
         
-        
-        this.estado = "Finalizada";
     }
 }
