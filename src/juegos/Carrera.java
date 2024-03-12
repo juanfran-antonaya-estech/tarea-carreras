@@ -7,9 +7,9 @@ public class Carrera {
     private Coche[] coches;
     private int vueltas;
 
-    public Carrera(Reloj reloj, Coche[] coches, int vueltas) {
+    public Carrera(Reloj reloj, int vueltas) {
         this.reloj = reloj;
-        this.coches = coches;
+        this.coches = new Coche[1];
         this.vueltas = vueltas;
         this.estado = "Pendiente";
     }
