@@ -11,7 +11,7 @@ public class Coche {
         this.nombre = nombre;
         this.numeroCoche = numeroCoche;
         this.reloj = new Reloj(h, m, s);
-        this.vuelta = 1;
+        this.vuelta = 0;
     }
 
     public String getNombre() {
@@ -39,5 +39,6 @@ public class Coche {
     public String toString() {
         return "Coche " + nombre + " (#" + numeroCoche + ") - Vuelta: " + vuelta + ", Tiempo: " + reloj;
     }
+
 }
 
