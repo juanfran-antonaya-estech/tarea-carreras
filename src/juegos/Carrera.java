@@ -1,33 +1,35 @@
 package juegos;
 
+import java.util.Arrays;
+
 public class Carrera {
 
-    private Reloj reloj;
-    private String estado;
+    private Reloj tiempoInicio;
+    private boolean enCurso;
     private Coche[] coches;
     private int vueltas;
 
-    public Carrera(Reloj reloj, int vueltas) {
-        this.reloj = reloj;
-        this.coches = new Coche[1];
+    public Carrera(Reloj tiempoInicio, Coche[] coches, int vueltas) {
+        this.tiempoInicio = tiempoInicio;
+        this.coches = coches;
         this.vueltas = vueltas;
-        this.estado = "Pendiente";
+        this.enCurso = false;
     }
 
-    public Reloj getReloj() {
-        return reloj;
+    public Reloj getTiempoInicio() {
+        return tiempoInicio;
     }
 
-    public void setReloj(Reloj reloj) {
-        this.reloj = reloj;
+    public void setTiempoInicio(Reloj tiempoInicio) {
+        this.tiempoInicio = tiempoInicio;
     }
 
-    public String getEstado() {
-        return estado;
+    public boolean isEnCurso() {
+        return enCurso;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEnCurso(boolean enCurso) {
+        this.enCurso = enCurso;
     }
 
     public Coche[] getCoches() {
@@ -47,22 +49,39 @@ public class Carrera {
     }
 
     public void agregarCoche(Coche nuevoCoche) {
-        
-
+        // Verificar si hay espacio disponible en la lista de coches
+        if (coches.length < nuevoCoche.getNumeroCoche()) {
+            coches[nuevoCoche.getNumeroCoche() - 1] = nuevoCoche;
+        } else {
+            System.out.println("Error: No hay espacio disponible para agregar el coche.");
+        }
     }
 
     public void comenzarCarrera() {
-        
-        this.estado = "En curso";
+        this.enCurso = true;
     }
 
-    public void registrarTiempoDeVuelta(Coche coche, int tiempo) {
-        
+    public void registrarTiempoDeVuelta(Reloj reloj, Coche coche) {
+        if (enCurso) {
+            coche.registrarTiempoDeVuelta(reloj);
+        } else {
+            System.out.println("Error: La carrera no está en curso.");
+        }
     }
 
     public void finalizarCarrera() {
-        
-        
-        this.estado = "Finalizada";
+        this.enCurso = false;
+        generarClasificacion();
+    }
+
+    private void generarClasificacion() {
+        // Ordenar los coches por tiempo total de carrera
+        Arrays.sort(coches, (c1, c2) -> c1.getTiempoTotal().compareTo(c2.getTiempoTotal()));
+
+        // Imprimir clasificación
+        System.out.println("Clasificación final:");
+        for (int i = 0; i < coches.length; i++) {
+            System.out.println((i + 1) + ". " + coches[i]);
+        }
     }
 }
