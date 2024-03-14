@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Carrera {
 
     private Reloj tiempoInicio;
-    private boolean enCurso;
+    private boolean estado;
     private Coche[] coches;
     private int vueltas;
 
@@ -13,7 +13,7 @@ public class Carrera {
         this.tiempoInicio = tiempoInicio;
         this.coches = coches;
         this.vueltas = vueltas;
-        this.enCurso = false;
+        this.estado = false;
     }
 
     public Reloj getTiempoInicio() {
@@ -25,11 +25,11 @@ public class Carrera {
     }
 
     public boolean isEnCurso() {
-        return enCurso;
+        return estado;
     }
 
     public void setEnCurso(boolean enCurso) {
-        this.enCurso = enCurso;
+        this.estado = enCurso;
     }
 
     public Coche[] getCoches() {
@@ -49,7 +49,6 @@ public class Carrera {
     }
 
     public void agregarCoche(Coche nuevoCoche) {
-        // Verificar si hay espacio disponible en la lista de coches
         if (coches.length < nuevoCoche.getNumeroCoche()) {
             coches[nuevoCoche.getNumeroCoche() - 1] = nuevoCoche;
         } else {
@@ -58,11 +57,11 @@ public class Carrera {
     }
 
     public void comenzarCarrera() {
-        this.enCurso = true;
+        this.estado = true;
     }
 
     public void registrarTiempoDeVuelta(Reloj reloj, Coche coche) {
-        if (enCurso) {
+        if (estado) {
             coche.registrarTiempoDeVuelta(reloj);
         } else {
             System.out.println("Error: La carrera no está en curso.");
@@ -70,18 +69,11 @@ public class Carrera {
     }
 
     public void finalizarCarrera() {
-        this.enCurso = false;
+        this.estado = false;
         generarClasificacion();
     }
 
     private void generarClasificacion() {
-        // Ordenar los coches por tiempo total de carrera
-        Arrays.sort(coches, (c1, c2) -> c1.getTiempoTotal().compareTo(c2.getTiempoTotal()));
-
-        // Imprimir clasificación
-        System.out.println("Clasificación final:");
-        for (int i = 0; i < coches.length; i++) {
-            System.out.println((i + 1) + ". " + coches[i]);
-        }
+        
     }
 }

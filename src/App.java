@@ -57,7 +57,7 @@ public class App {
     private static Coche crearCoche() {
         limpial();
         System.out.println("Crear coche:");
-        Coche coche = new Coche(pedirString("nombre"),pedirInt("horas"), pedirInt("minutos"), pedirInt("segundos"));
+        Coche coche = new Coche(null, 0, 0, 0, 0);
         return coche;
     }
 
