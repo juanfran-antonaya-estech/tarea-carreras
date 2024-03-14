@@ -31,7 +31,9 @@ public class Coche {
     }
 
     public void registrarTiempoDeVuelta(Reloj reloj) {
-        this.reloj = reloj;
+        for (int i = 0; i < reloj.getTotalSegundos(); i++) {
+        this.reloj.sumarSegundo();
+        }
         this.vuelta++;
     }
 

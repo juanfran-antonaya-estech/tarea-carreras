@@ -1,17 +1,18 @@
 package juegos;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Carrera {
 
     private Reloj tiempoInicio;
     private boolean estado;
-    private Coche[] coches;
+    private ArrayList<Coche> coches;
     private int vueltas;
 
-    public Carrera(Reloj tiempoInicio, Coche[] coches, int vueltas) {
+    public Carrera(Reloj tiempoInicio, int vueltas) {
         this.tiempoInicio = tiempoInicio;
-        this.coches = coches;
+        coches = new ArrayList<>();
         this.vueltas = vueltas;
         this.estado = false;
     }
@@ -32,11 +33,11 @@ public class Carrera {
         this.estado = enCurso;
     }
 
-    public Coche[] getCoches() {
+    public ArrayList<Coche> getCoches() {
         return coches;
     }
 
-    public void setCoches(Coche[] coches) {
+    public void setCoches(ArrayList<Coche> coches) {
         this.coches = coches;
     }
 
@@ -49,11 +50,7 @@ public class Carrera {
     }
 
     public void agregarCoche(Coche nuevoCoche) {
-        if (coches.length < nuevoCoche.getNumeroCoche()) {
-            coches[nuevoCoche.getNumeroCoche() - 1] = nuevoCoche;
-        } else {
-            System.out.println("Error: No hay espacio disponible para agregar el coche.");
-        }
+        coches.add(nuevoCoche);
     }
 
     public void comenzarCarrera() {

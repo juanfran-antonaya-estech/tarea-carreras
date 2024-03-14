@@ -8,17 +8,20 @@ import java.util.Scanner;
 import static java.lang.System.exit;
 
 public class App {
-    private static Carrera carrera = new Carrera(new Reloj(), 0);
+    private static Carrera carrera;
     private static ArrayList<Coche> coches = new ArrayList<Coche>();
+
+    private static Scanner t = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
+        carrera = new Carrera(new Reloj(), 0);
         while (true) {
-            mostrarMenu();
+            mostrarMenu(carrera);
         }
     }
 
-    private static void mostrarMenu() {
+    private static void mostrarMenu(Carrera carrera) {
         limpial();
-        if (!carrera.getEstado().equals("En curso")) {
+        if (!carrera.isEnCurso()) {
             System.out.println("Bienvenido");
             System.out.println("1. Crear coche");
             System.out.println("2. Listar coches");
@@ -39,13 +42,16 @@ public class App {
                 case 4:
                     System.exit(0);
             }
+        } else {
+
         }
     }
 
     private static void iniciarCarrera() {
         for (int i = 0; i < coches.size(); i++) {
-            carrera.agregarCoche(coches.get(i));
+        carrera.agregarCoche(coches.get(i));
         }
+        carrera.comenzarCarrera();
     }
 
     private static void listarCoches() {
@@ -57,7 +63,7 @@ public class App {
     private static Coche crearCoche() {
         limpial();
         System.out.println("Crear coche:");
-        Coche coche = new Coche(null, 0, 0, 0, 0);
+        Coche coche = new Coche(pedirString("nombre"), pedirInt("numero de coche"), pedirInt("Horas"), pedirInt("Minutos"), pedirInt("Segundos"));
         return coche;
     }
 
@@ -68,17 +74,13 @@ public class App {
 
     private static int pedirInt(String s) {
         System.out.println("Introduce " + s + ": ");
-        Scanner t = new Scanner(System.in);
         int namber = t.nextInt();
-        t.close();
         return namber;
     }
 
     private static String pedirString(String s) {
         System.out.println("Introduce " + s + ": ");
-        Scanner t = new Scanner(System.in);
-        String texto = t.nextLine();
-        t.close();
+        String texto = t.next();
         return texto;
     }
 }

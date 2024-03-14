@@ -54,8 +54,20 @@ public class Reloj {
         return true;
     }
 
+    public int getTotalSegundos(){
+        return ((horas * 60 + minutos) * 60) + segundos;
+    }
+
     public void sumarSegundo(){
-        this.segundos ++;
+        this.segundos++;
+        if (segundos == 60){
+            segundos = 0;
+            minutos++;
+            if (minutos == 60) {
+                minutos = 0;
+                horas++;
+            }
+        }
     }
 
     public void sumarSegundos(int cant){
