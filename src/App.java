@@ -2,10 +2,7 @@ import juegos.Carrera;
 import juegos.Coche;
 import juegos.Reloj;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import static java.lang.System.exit;
+import java.util.*;
 
 public class App {
     private static Carrera carrera;
@@ -43,7 +40,58 @@ public class App {
                     System.exit(0);
             }
         } else {
+            System.out.println("Carrera en curso");
+            System.out.println("1. Registrar vuelta");
+            System.out.println("2. Finalizar carrera");
+            int opcion = pedirInt("opción");
 
+            switch (opcion){
+                case 1:
+                    registrarVuelta();
+                    break;
+                case 2:
+                    finalizarCarrera();
+                    break;
+                default:
+                    carrera.cambiarEstadoCarrera();
+                    break;
+            }
+        }
+    }
+
+    private static void registrarVuelta() {
+        for (int i = 0; i < coches.size(); i++) {
+            System.out.println(coches.get(i));
+            carrera.registrarTiempoDeVuelta(new Reloj(pedirInt("Horas"), pedirInt("Minutos"), pedirInt("segundos")), coches.get(i));
+        }
+    }
+
+    private static void finalizarCarrera(){
+        carrera.cambiarEstadoCarrera();
+        imprimirPodio(carrera.getCoches());
+    }
+
+    private static void imprimirPodio(ArrayList<Coche> coches) {
+
+        boolean sorted = false;
+        Coche[] cochaux = coches.toArray(new Coche[0]);
+        while(!sorted){
+            sorted = true;
+            for (int i = 0; i < cochaux.length; i++) {
+                if (i != cochaux.length - 1) {
+                    if (cochaux[i].getSegundos() > cochaux[i + 1].getSegundos()){
+                        Coche aux = cochaux[i];
+                        cochaux[i] = cochaux[i + 1];
+                        cochaux[i + 1] = aux;
+                        sorted = false;
+                    }
+
+                }
+            }
+        }
+
+        for (int i = 0; i < cochaux.length; i++) {
+            System.out.println("Coche " + (i + 1) + ": "+cochaux[i]);
         }
     }
 
@@ -51,12 +99,12 @@ public class App {
         for (int i = 0; i < coches.size(); i++) {
         carrera.agregarCoche(coches.get(i));
         }
-        carrera.comenzarCarrera();
+        carrera.cambiarEstadoCarrera();
     }
 
     private static void listarCoches() {
         for (int i = 0; i < coches.size(); i++) {
-            System.out.println("Coche " + i + ": "+coches.get(i));
+            System.out.println("Coche " + (i + 1) + ": "+coches.get(i));
         }
     }
 

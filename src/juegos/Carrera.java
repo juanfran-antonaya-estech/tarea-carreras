@@ -1,7 +1,6 @@
 package juegos;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Carrera {
 
@@ -53,8 +52,8 @@ public class Carrera {
         coches.add(nuevoCoche);
     }
 
-    public void comenzarCarrera() {
-        this.estado = true;
+    public void cambiarEstadoCarrera() {
+        this.estado = !this.estado;
     }
 
     public void registrarTiempoDeVuelta(Reloj reloj, Coche coche) {

@@ -21,6 +21,7 @@ public class Coche {
     public Reloj getReloj() {
         return reloj;
     }
+    public int getSegundos() { return reloj.getTotalSegundos(); };
 
     public int getNumeroCoche() {
         return numeroCoche;
